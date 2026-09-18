@@ -1,5 +1,5 @@
-import React from 'react';
-import { Search, Key, RotateCcw, Layers, Building2, Info, UploadCloud, Database } from 'lucide-react';
+﻿import React from 'react';
+import { Search, Key, Building2, Info, UploadCloud, Database } from 'lucide-react';
 
 export default function Navbar({
   searchTerm,
@@ -15,97 +15,77 @@ export default function Navbar({
 }) {
   return (
     <header className="navbar">
-      <div className="tricolor-strip" />
       <div className="navbar-content">
-        {/* Brand & SIH Badge */}
-        <div className="navbar-brand">
-          <span className="brand-badge">SIH 2026</span>
+        {/* Brand & Title */}
+        <div className="navbar-brand" onClick={onResetView} style={{ cursor: 'pointer' }}>
+          <div className="brand-icon-box">
+            <Building2 size={18} color="#00f2fe" />
+          </div>
           <div>
-            <h1 className="brand-title">
-              <Building2 size={18} color="#ff9933" />
-              3D ULPIN & Vertical Property Mapping
-            </h1>
-            <p className="brand-subtitle">
-              {activeMetadata?.name || 'Synthetic Demo'} • {activeMetadata?.source || 'Open Geospatial Benchmark'}
-            </p>
+            <h1 className="brand-title">3D ULPIN</h1>
+            <p className="brand-subtitle">Vertical Property Mapping System</p>
           </div>
         </div>
 
         {/* Center Search Input */}
-        <div className="search-wrapper" style={{ width: '260px' }}>
-          <Search size={15} className="search-icon" />
+        <div className="search-wrapper">
+          <Search size={14} className="search-icon" />
           <input
             type="text"
             className="search-input"
-            placeholder="Search Building, Parcel ID, or ULPIN..."
+            placeholder="Search building, BIN, or ULPIN..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        {/* Right Actions */}
+        {/* Right Actions & Location Selector */}
         <div className="navbar-actions">
-          {/* Dataset Switcher Dropdown */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Database size={14} color="#38bdf8" />
+          {/* Location / Dataset Selector */}
+          <div className="dataset-select-wrapper">
+            <Database size={13} color="#38bdf8" />
             <select
               value={currentDatasetKey}
               onChange={(e) => onSelectDataset(e.target.value)}
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '8px',
-                padding: '6px 12px',
-                color: '#f8fafc',
-                fontSize: '12px',
-                fontWeight: 600,
-                outline: 'none',
-                cursor: 'pointer'
-              }}
-              title="Select Cadastral Dataset"
+              className="dataset-select"
+              title="Select Cadastral Benchmark Location"
             >
-              <option value="nyc" style={{ background: '#0f172a', color: '#fff' }}>
-                🏙️ Foreign City — New York, USA
-              </option>
-              <option value="synthetic" style={{ background: '#0f172a', color: '#fff' }}>
-                📍 Synthetic Demo — Not Official Data
-              </option>
+              <option value="nyc">Foreign City — New York, USA</option>
+              <option value="synthetic">Synthetic Demo — Not Official Data</option>
               {currentDatasetKey === 'imported' && (
-                <option value="imported" style={{ background: '#0f172a', color: '#fff' }}>
-                  📁 Custom Imported GeoJSON
-                </option>
+                <option value="imported">Custom Imported GeoJSON</option>
               )}
             </select>
           </div>
 
-          {/* Import GeoJSON Button */}
+          {/* Import GeoJSON */}
           <button
-            className="btn btn-secondary"
+            className="nav-btn"
             onClick={onOpenImportModal}
-            title="Import custom cadastral GeoJSON file"
+            title="Import custom cadastral GeoJSON"
           >
             <UploadCloud size={14} />
-            Import GeoJSON
+            <span>Import</span>
           </button>
 
-          {/* About & Data Source Modal */}
+          {/* About / Source */}
           <button
-            className="btn btn-secondary"
+            className="nav-btn"
             onClick={onOpenAboutModal}
-            title="About System, Data Provenance & Legal Disclaimers"
+            title="About Data Provenance & Legal Disclaimers"
           >
             <Info size={14} color="#38bdf8" />
-            About / Source
+            <span>About</span>
           </button>
 
-          {/* Cesium Ion Token Settings */}
+          {/* Ion Token */}
           <button
-            className="btn btn-saffron"
+            className={`nav-btn ${hasCustomToken ? 'nav-btn-active' : ''}`}
             onClick={onOpenTokenModal}
             title="Configure Cesium Ion Access Token"
           >
-            <Key size={14} />
-            {hasCustomToken ? 'Ion Active' : 'Ion Token'}
+            <Key size={14} color={hasCustomToken ? '#4ade80' : '#94a3b8'} />
+            <span>{hasCustomToken ? 'Ion Active' : 'Token'}</span>
           </button>
         </div>
       </div>
