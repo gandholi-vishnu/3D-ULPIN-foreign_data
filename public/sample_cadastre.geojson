@@ -1,0 +1,65 @@
+{
+  "type": "FeatureCollection",
+  "name": "SIH_Sample_Open_Cadastre",
+  "metadata": {
+    "source": "Open Cadastre GeoJSON Specification",
+    "crs": "EPSG:4326 (WGS 84)",
+    "description": "Sample Cadastral FeatureCollection for testing 3D ULPIN and vertical strata generation",
+    "disclaimer": "Sample technical benchmark dataset. Not official Government of India records."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "LOT-IMPORT-01",
+        "name": "Central Strata Plaza (G+3 Floors)",
+        "surveyNumber": "IMP-101/A",
+        "landType": "Commercial (Vertical Strata)",
+        "subType": "Mixed-Use Plaza",
+        "owner": "Urban Property Development Consortium",
+        "isVerticalProperty": true,
+        "totalFloors": 4,
+        "extrudedHeight": 14.0,
+        "description": "Multi-tier commercial strata property demonstrating imported 3D ULPIN generation."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [74.7485, 19.1215],
+            [74.7505, 19.1215],
+            [74.7505, 19.1235],
+            [74.7485, 19.1235],
+            [74.7485, 19.1215]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "LOT-IMPORT-02",
+        "name": "Krishi Samvardhan Organic Farm",
+        "surveyNumber": "IMP-102/B",
+        "landType": "Agricultural",
+        "subType": "Organic Farming",
+        "owner": "Kisan Sahakari Trust",
+        "isVerticalProperty": false,
+        "extrudedHeight": 0.5,
+        "description": "Surface agricultural parcel mapped from custom GeoJSON import."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [74.7515, 19.1215],
+            [74.7540, 19.1215],
+            [74.7540, 19.1235],
+            [74.7515, 19.1235],
+            [74.7515, 19.1215]
+          ]
+        ]
+      }
+    }
+  ]
+}
