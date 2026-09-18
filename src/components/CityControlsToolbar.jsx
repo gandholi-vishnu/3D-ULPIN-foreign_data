@@ -4,9 +4,11 @@ import {
   Flame,
   Maximize2,
   Layers,
-  Eye,
   RotateCcw,
-  Palette
+  Globe,
+  Compass,
+  Moon,
+  ArrowLeft
 } from 'lucide-react';
 
 export default function CityControlsToolbar({
@@ -17,14 +19,46 @@ export default function CityControlsToolbar({
   onZoomToDataset,
   show3DStrata,
   setShow3DStrata,
-  is2DView,
-  setIs2DView,
+  mapViewMode = 'standard',
+  setMapViewMode,
   onResetView
 }) {
   return (
     <>
       {/* Floating 3D City Controls Toolbar */}
       <div className="city-controls-bar">
+        {/* Three Map View Modes (Standard Map | Street View | Dark View) */}
+        <div className="view-mode-segmented">
+          <button
+            className={`view-mode-tab ${mapViewMode === 'standard' ? 'active' : ''}`}
+            onClick={() => setMapViewMode('standard')}
+            title="Standard aerial 3D city perspective"
+          >
+            <Globe size={13} />
+            <span>Standard Map</span>
+          </button>
+
+          <button
+            className={`view-mode-tab ${mapViewMode === 'street' ? 'active' : ''}`}
+            onClick={() => setMapViewMode('street')}
+            title="Street-Level 3D pedestrian view navigating between skyscrapers"
+          >
+            <Compass size={13} />
+            <span>Street View</span>
+          </button>
+
+          <button
+            className={`view-mode-tab ${mapViewMode === 'dark' ? 'active' : ''}`}
+            onClick={() => setMapViewMode('dark')}
+            title="Dark-themed map view with glowing height-coded building envelopes"
+          >
+            <Moon size={13} />
+            <span>Dark View</span>
+          </button>
+        </div>
+
+        <div className="toolbar-divider" />
+
         {/* 1. Show/Hide Buildings */}
         <button
           className={`city-ctrl-btn ${showBuildings ? 'active' : ''}`}
@@ -42,20 +76,10 @@ export default function CityControlsToolbar({
           title="Toggle height-based gradient heatmap colors"
         >
           <Flame size={14} color={colorByHeight ? '#ffea00' : '#f97316'} />
-          Color by Height
+          Height Heatmap
         </button>
 
-        {/* 3. Zoom to Dataset */}
-        <button
-          className="city-ctrl-btn"
-          onClick={onZoomToDataset}
-          title="Fit camera to frame full 3D city skyline"
-        >
-          <Maximize2 size={13} />
-          Zoom to City
-        </button>
-
-        {/* 4. 3D Strata */}
+        {/* 3. 3D Strata */}
         <button
           className={`city-ctrl-btn ${show3DStrata ? 'active' : ''}`}
           onClick={() => setShow3DStrata(!show3DStrata)}
@@ -65,17 +89,17 @@ export default function CityControlsToolbar({
           3D Strata {show3DStrata ? 'ON' : 'OFF'}
         </button>
 
-        {/* 5. 2D / 3D View */}
+        {/* 4. Zoom to City */}
         <button
-          className={`city-ctrl-btn ${is2DView ? 'active' : ''}`}
-          onClick={() => setIs2DView(!is2DView)}
-          title="Switch between 3D Perspective Globe and 2D Cadastral Plan"
+          className="city-ctrl-btn"
+          onClick={onZoomToDataset}
+          title="Fit camera to frame full 3D city skyline"
         >
-          <Eye size={13} />
-          {is2DView ? '2D Plan View' : '3D City View'}
+          <Maximize2 size={13} />
+          Zoom to City
         </button>
 
-        {/* 6. Reset View */}
+        {/* 5. Reset View */}
         <button
           className="city-ctrl-btn"
           onClick={onResetView}
@@ -86,9 +110,34 @@ export default function CityControlsToolbar({
         </button>
       </div>
 
-      {/* Height-Based Color Legend (Shown when Color by Height is active) */}
+      {/* Street View Mode Active Floating Indicator */}
+      {mapViewMode === 'street' && (
+        <div className="street-view-indicator glass-panel">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="pulsing-street-dot" />
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '13px', color: '#38bdf8' }}>
+                Street-Level 3D View (Pedestrian Perspective)
+              </div>
+              <div style={{ fontSize: '11px', color: '#94a3b8' }}>
+                Navigating Lower Manhattan skyscraper canyons at street grade (~3.5m elev)
+              </div>
+            </div>
+          </div>
+          <button
+            className="exit-street-btn"
+            onClick={() => setMapViewMode('standard')}
+            title="Return to aerial overview"
+          >
+            <ArrowLeft size={13} />
+            Return to Standard View
+          </button>
+        </div>
+      )}
+
+      {/* Height-Based Color Legend (Consistent across Standard & Dark Views) */}
       {colorByHeight && (
-        <div className="height-legend-bar">
+        <div className={`height-legend-bar ${mapViewMode === 'dark' ? 'dark-mode-legend' : ''}`}>
           <span style={{ fontWeight: 700, color: '#f8fafc', marginRight: '4px' }}>
             Building Height:
           </span>

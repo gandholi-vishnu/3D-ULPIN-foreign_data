@@ -801,3 +801,277 @@ html, body, #root {
   border-radius: 50%;
 }
 
+
+/* ============================================================
+   NEW UI CLASSES — View Mode, Floor Panel, Search (SIH 2026)
+   ============================================================ */
+
+/* --- View Mode Segmented Tabs --- */
+.view-mode-segmented {
+  display: flex;
+  flex-direction: row;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  gap: 0;
+}
+
+.view-mode-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+
+.view-mode-tab:hover {
+  background: rgba(255,255,255,0.07);
+  color: #e2e8f0;
+}
+
+.view-mode-tab.active {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border-bottom: 2px solid #38bdf8;
+}
+
+/* --- Toolbar Divider --- */
+.toolbar-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,0.15);
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+
+/* --- Street View Active Indicator --- */
+.street-view-indicator {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: #a5b4fc;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+}
+
+.pulsing-street-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #818cf8;
+  animation: pulse-dot 1.5s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.exit-street-btn {
+  background: rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(99, 102, 241, 0.5);
+  color: #a5b4fc;
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.exit-street-btn:hover {
+  background: rgba(99, 102, 241, 0.45);
+}
+
+/* --- Active Floor Highlight Card --- */
+.active-floor-highlight-card {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.12), rgba(251, 191, 36, 0.06));
+  border: 1px solid rgba(234, 179, 8, 0.45);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.active-floor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fbbf24;
+  margin-bottom: 6px;
+}
+
+.active-subulpin-box {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  color: #fde68a;
+  word-break: break-all;
+  margin-top: 6px;
+}
+
+/* --- Floor Attribute Grid --- */
+.floor-attr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.floor-attr-pill {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+
+.floor-attr-pill .pill-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.floor-attr-pill .pill-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* --- Quick Floor Jump Bar --- */
+.quick-floor-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 4px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.quick-floor-bar::-webkit-scrollbar { display: none; }
+
+.quick-floor-chip {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.quick-floor-chip:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.quick-floor-chip.active {
+  background: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+  border-color: #38bdf8;
+}
+
+/* --- Floor Search Box --- */
+.floor-search-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 5px 10px;
+  margin-bottom: 8px;
+}
+
+.floor-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  color: #e2e8f0;
+  font-family: inherit;
+}
+
+.floor-search-input::placeholder {
+  color: #475569;
+}
+
+.btn-clear-search {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+
+.btn-clear-search:hover { color: #e2e8f0; }
+
+/* --- Small Icon Button --- */
+.btn-icon-sm {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #94a3b8;
+  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-icon-sm:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+/* --- Dark Mode Legend Modifier --- */
+.height-legend-bar.dark-mode-legend {
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2), 0 8px 20px rgba(0,0,0,0.6);
+}
+

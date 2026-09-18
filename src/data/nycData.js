@@ -17,6 +17,8 @@
  * Neither NYC Open Data nor OpenStreetMap provides official cadastral ownership or legal ULPIN data.
  */
 
+import { generateFullBuildingStrata } from '../utils/ulpinGenerator.js';
+
 export const NYC_METADATA = {
   name: "Foreign City — New York, USA",
   region: "Lower Manhattan / Financial District",
@@ -37,7 +39,7 @@ export const NYC_METADATA = {
   disclaimer: "AUTHENTIC NYC OPEN DATA: Building envelopes and street geometry sourced from NYC Open Data and OpenStreetMap. ULPIN identifiers and strata subdivisions are prototype-generated for technical demonstration."
 };
 
-export const NYC_PARCELS = [
+const RAW_NYC_PARCELS = [
   // 1. One World Trade Center
   {
     id: "NYC-BBL-1000580001",
@@ -562,6 +564,14 @@ export const NYC_PARCELS = [
     description: "Civic center of New York City government surrounding historic New York City Hall."
   }
 ];
+
+export const NYC_PARCELS = RAW_NYC_PARCELS.map((bldg) => {
+  if (!bldg.isVerticalProperty) return bldg;
+  return {
+    ...bldg,
+    verticalStrata: generateFullBuildingStrata(bldg)
+  };
+});
 
 export const NYC_ROADS = [
   {
