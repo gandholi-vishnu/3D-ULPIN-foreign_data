@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
   X,
   Copy,
@@ -24,22 +24,7 @@ export default function ParcelDetailPanel({
   const [copiedUnitUlpin, setCopiedUnitUlpin] = useState(null);
   const [floorSearch, setFloorSearch] = useState('');
 
-  // Handle empty state gracefully
-  if (!parcel) {
-    return (
-      <div className="detail-panel glass-panel detail-panel-empty">
-        <div className="empty-panel-content">
-          <div className="empty-panel-icon">
-            <Building size={28} />
-          </div>
-          <h3 className="empty-panel-title">Select a Building</h3>
-          <p className="empty-panel-desc">
-            Click any 3D building or parcel on the map to inspect its cadastral ULPIN, surveyed height, and vertical strata.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  if (!parcel) return null;
 
   const handleCopyUlpin = (text, isUnit = false) => {
     if (!text) return;

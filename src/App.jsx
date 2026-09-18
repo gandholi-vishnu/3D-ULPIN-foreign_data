@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import DashboardHud from './components/DashboardHud';
 import ParcelDetailPanel from './components/ParcelDetailPanel';
@@ -178,15 +178,17 @@ export default function App() {
       />
 
       {/* Right Details Panel - Selected Parcel & Vertical Strata Units */}
-      <ParcelDetailPanel
-        parcel={selectedParcel}
-        onClose={() => {
-          setSelectedParcel(null);
-          setSelectedUnitId(null);
-        }}
-        selectedUnitId={selectedUnitId}
-        onSelectUnit={setSelectedUnitId}
-      />
+      {selectedParcel && (
+        <ParcelDetailPanel
+          parcel={selectedParcel}
+          onClose={() => {
+            setSelectedParcel(null);
+            setSelectedUnitId(null);
+          }}
+          selectedUnitId={selectedUnitId}
+          onSelectUnit={setSelectedUnitId}
+        />
+      )}
 
       {/* Bottom Status & Data Source Bar */}
       <footer className="bottom-disclaimer-bar">
